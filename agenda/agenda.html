@@ -990,17 +990,89 @@
         </section>
 
         <!-- Seção Dashboard - ADMIN -->
-        <section id="sec-dashboard" style="display: none; padding: 2rem">
-          <h3 class="fw-bold mb-4" style="color: #985d78">
-            Bem-vindo(a), Administrador(a)
-          </h3>
-          <p>Gerencie os agendamentos, clientes e disponibilidade da agenda.</p>
+        <section id="sec-dashboard" style="display: none">
+          <h4 class="fw-bold mb-3" style="color: #985d78">Dashboard</h4>
 
-          <button class="btn btn-primary my-3">+ Novo Agendamento</button>
-          <button class="btn btn-danger my-3">
-            Bloquear horário da agenda
-          </button>
-          <!-- Aqui será inserido o conteúdo via JS -->
+          <div class="mb-4">
+            <h6 class="fw-semibold text-muted">
+              Atendimentos realizados do mês atual:
+            </h6>
+            <div class="bg-white p-3 rounded-3 shadow-sm">
+              <table class="table align-middle mb-0">
+                <thead class="text-secondary fw-semibold">
+                  <tr>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Volume Brasileiro</td>
+                    <td>Lilian Cunha</td>
+                    <td>Concluído</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                  <tr>
+                    <td>Efeito Fox</td>
+                    <td>Lilian Cunha</td>
+                    <td>Concluído</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                  <tr>
+                    <td>Efeito Molhado</td>
+                    <td>Lilian Cunha</td>
+                    <td>Concluído</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h6 class="fw-semibold text-muted">
+              Atendimentos cancelados do mês atual:
+            </h6>
+            <div class="bg-white p-3 rounded-3 shadow-sm">
+              <table class="table align-middle mb-0">
+                <thead class="text-secondary fw-semibold">
+                  <tr>
+                    <th>Serviço</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Volume Brasileiro</td>
+                    <td>Lilian Cunha</td>
+                    <td>Cancelado</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                  <tr>
+                    <td>Efeito Fox</td>
+                    <td>Lilian Cunha</td>
+                    <td>Cancelado</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                  <tr>
+                    <td>Efeito Molhado</td>
+                    <td>Lilian Cunha</td>
+                    <td>Cancelado</td>
+                    <td>25/06/2025</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="text-end fw-semibold text-muted">
+            Quantidade de clientes atendidos:
+            <span style="color: #000">10</span>
+          </div>
         </section>
 
         <!-- Seção de Agenda para Administrador -->
@@ -1029,11 +1101,122 @@
             </button>
           </div>
         </section>
+
+        <!-- Seção: Histórico de Agendamentos (visível apenas para Admin) -->
+        <section id="sec-historico-agendamentos" style="display: none">
+          <h3 class="fw-bold mb-2" style="color: #985d78">
+            Histórico de Agendamentos
+          </h3>
+          <p class="text-muted mb-4">horários de atendimento do dia:</p>
+
+          <div class="bg-white p-3 rounded-3 shadow-sm">
+            <table class="table align-middle mb-0">
+              <thead class="text-secondary fw-semibold">
+                <tr>
+                  <th>Nome</th>
+                  <th>Data</th>
+                  <th>Horário</th>
+                  <th>Ação</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaHistoricoAgendamentos"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Seção de Detalhes do Histórico de Agendamento -->
+        <section id="sec-historico-detalhes" style="display: none">
+          <h4 class="fw-bold mb-3" style="color: #985d78">
+            Histórico de Agendamentos /
+            <span style="color: #000">Detalhes</span>
+          </h4>
+
+          <p class="text-muted fw-semibold">Informações do agendamento:</p>
+
+          <div
+            class="bg-white p-4 rounded-3 shadow-sm mb-4"
+            style="max-width: 720px"
+          >
+            <table class="table mb-4">
+              <thead class="text-secondary">
+                <tr>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Serviço</th>
+                  <th>Data</th>
+                  <th>Horário</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="detalheHistoricoNome">-</td>
+                  <td id="detalheHistoricoTelefone">-</td>
+                  <td id="detalheHistoricoServico">-</td>
+                  <td id="detalheHistoricoData">-</td>
+                  <td id="detalheHistoricoHorario">-</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="mb-3">
+              <label for="statusHistorico" class="form-label fw-semibold"
+                >Status:</label
+              >
+              <select
+                id="statusHistorico"
+                class="form-select"
+                aria-label="Alterar status"
+              >
+                <option value="AGENDADO">AGENDADO</option>
+                <option value="CONCLUIDO">CONCLUÍDO</option>
+                <option value="CANCELADO">CANCELADO</option>
+              </select>
+            </div>
+
+            <div class="d-flex gap-2">
+              <button
+                id="btnAtualizarStatus"
+                class="btn fw-bold text-white"
+                style="background-color: #22c55e"
+              >
+                Atualizar Status
+              </button>
+              <button
+                id="btnVoltarHistorico"
+                class="btn fw-bold text-white"
+                style="background-color: #cbd5e1"
+              >
+                Voltar
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Seção: Clientes (visível apenas para Admin) -->
+        <section id="sec-clientes" style="display: none">
+          <h3 class="fw-bold mb-3" style="color: #985d78">Clientes</h3>
+          <div class="bg-white p-3 rounded-3 shadow-sm">
+            <table class="table align-middle mb-0">
+              <thead class="text-secondary fw-semibold">
+                <tr>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody id="tabelaClientes">
+                <!-- será preenchido dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        let agendamentos =
+          JSON.parse(localStorage.getItem("agendamentos")) || [];
         // Navegação entre seções da sidebar
         document
           .querySelectorAll(".sidebar a[data-section]")
@@ -1210,7 +1393,7 @@
         document
           .getElementById("btnConfirmarServico")
           .addEventListener("click", () => {
-            const select = document.getElementById("selectServico");
+            const select = document.getElementById("servicoSelect");
             const selected = select.value;
 
             if (selected !== "") {
@@ -1369,8 +1552,6 @@
           });
         }
 
-        let agendamentos = [];
-
         function adicionarAgendamento(servico, data, horario) {
           const novo = { servico, data, horario, status: "AGENDADO" };
 
@@ -1432,6 +1613,23 @@
             .forEach((sec) => (sec.style.display = "none"));
           document.getElementById("sec-agendamento-detalhe").style.display =
             "block";
+        }
+
+        function adicionarAgendamento(servico, data, horario) {
+          const usuario = JSON.parse(localStorage.getItem("usuario")) || {};
+          const novo = {
+            servico,
+            data,
+            horario,
+            status: "AGENDADO",
+            cliente: usuario.nome || "Cliente Desconhecido",
+          };
+
+          let todos = JSON.parse(localStorage.getItem("agendamentos")) || [];
+          todos.push(novo);
+          localStorage.setItem("agendamentos", JSON.stringify(todos));
+          agendamentos.push(novo);
+          atualizarListaAgendamentos();
         }
 
         document
@@ -1590,6 +1788,24 @@
         }
       });
 
+      function atualizarDashboard() {
+        const tabela = document.querySelector("#sec-dashboard table tbody");
+        tabela.innerHTML = "";
+
+        const agendamentos =
+          JSON.parse(localStorage.getItem("agendamentos")) || [];
+
+        agendamentos.forEach((ag, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+      <td>${ag.servico}</td>
+      <td>${ag.cliente || "Cliente Desconhecido"}</td>
+      <td>${ag.status}</td>
+      <td>${ag.data}</td>
+    `;
+          tabela.appendChild(tr);
+        });
+      }
       // Exibir dados do perfil com base no login
       document.addEventListener("DOMContentLoaded", () => {
         const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
@@ -1668,6 +1884,8 @@
       if (usuario && usuario.tipo === "admin") {
         const adminLink = document.getElementById("adminDashboardLink");
 
+        atualizarDashboard();
+
         if (adminLink) {
           adminLink.style.display = "flex"; // mostra o botão na sidebar
 
@@ -1696,47 +1914,139 @@
         atualizarListaAgendamentos();
       }
 
-      function carregarAgendamentosNoDashboard() {
-        const lista = JSON.parse(localStorage.getItem("agendamentos")) || [];
-        const secao = document.getElementById("sec-dashboard");
+      document.addEventListener("DOMContentLoaded", () => {
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-        let html = `<h3 class="fw-bold mb-4" style="color: #985d78">Agendamentos Registrados</h3>`;
-        html += `<table class="table"><thead><tr><th>Serviço</th><th>Data</th><th>Horário</th></tr></thead><tbody>`;
+        if (usuario && usuario.tipo === "admin") {
+          document
+            .querySelectorAll("section[id^='sec-']")
+            .forEach((sec) => (sec.style.display = "none"));
+          document.getElementById("sec-dashboard").style.display = "block";
 
-        lista.forEach((ag) => {
-          html += `<tr><td>${ag.servico}</td><td>${ag.data}</td><td>${ag.horario}</td></tr>`;
+          // Ativa menu do dashboard
+          document
+            .querySelectorAll(".sidebar a")
+            .forEach((link) => link.classList.remove("active"));
+          const linkDashboard = document.querySelector(
+            '.sidebar a[data-section="dashboard"]'
+          );
+        }
+      });
+
+      // Exibir histórico de agendamentos apenas se for admin
+      document.addEventListener("DOMContentLoaded", () => {
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+        const link = document.createElement("a");
+        link.href = "#";
+        link.setAttribute("data-section", "historico-agendamentos");
+        link.innerHTML =
+          '<i class="fa-regular fa-clock"></i> Histórico de Agendamentos';
+
+        if (usuario && usuario.tipo === "admin") {
+          const menu = document.querySelector(".sidebar div");
+          menu.insertBefore(link, menu.children[1]); // insere depois de "Agenda"
+        }
+
+        document.querySelectorAll(".sidebar a[data-section]").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            document
+              .querySelectorAll(".sidebar a")
+              .forEach((a) => a.classList.remove("active"));
+            el.classList.add("active");
+
+            document.querySelectorAll("section[id^='sec-']").forEach((sec) => {
+              sec.style.display = "none";
+            });
+
+            const secao = document.getElementById("sec-" + el.dataset.section);
+            if (secao) secao.style.display = "block";
+          });
         });
-
-        html += `</tbody></table>`;
-        secao.innerHTML += html;
-      }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      });
 
       if (usuario && usuario.tipo === "admin") {
-        document
-          .querySelectorAll("section[id^='sec-']")
-          .forEach((sec) => (sec.style.display = "none"));
-        document.getElementById("sec-dashboard").style.display = "block";
+        const menuSidebar = document.querySelector(".sidebar div");
 
-        // Ativa menu do dashboard
-        document
-          .querySelectorAll(".sidebar a")
-          .forEach((link) => link.classList.remove("active"));
+        const linkClientes = document.createElement("a");
+        linkClientes.href = "#";
+        linkClientes.dataset.section = "clientes";
+        linkClientes.innerHTML = '<i class="fa-solid fa-users"></i> Clientes';
+
         const linkDashboard = document.querySelector(
           '.sidebar a[data-section="dashboard"]'
         );
-        if (linkDashboard) linkDashboard.classList.add("active");
-
-        carregarAgendamentosNoDashboard();
+        menuSidebar.insertBefore(linkClientes, linkDashboard);
       }
-    });
+
+      function carregarClientes() {
+        const tabela = document.getElementById("tabelaClientes");
+
+        const clientes = [
+          {
+            nome: "Maria Cristina",
+            email: "maria.cristina@gmail.com",
+            telefone: "(11) 98520-5216",
+          },
+          {
+            nome: "Rosalia Fernanda",
+            email: "rosalia.fern@gmail.com",
+            telefone: "(11) 98520-5216",
+          },
+          {
+            nome: "Bruna Oliveira",
+            email: "bruna.Olive@gmail.com",
+            telefone: "(11) 98520-5216",
+          },
+          {
+            nome: "Lilian Cunha",
+            email: "lilian.cunha@gmail.com",
+            telefone: "(11) 98520-5216",
+          },
+        ];
+
+        tabela.innerHTML = "";
+        clientes.forEach((cliente) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+      <td>${cliente.nome}</td>
+      <td>${cliente.email}</td>
+      <td>${cliente.telefone}</td>
+    `;
+          tabela.appendChild(tr);
+        });
+      }
+
+      function carregarHistoricoAgendamentos() {
+        const tabela = document.getElementById("tabelaHistoricoAgendamentos");
+        tabela.innerHTML = "";
+
+        agendamentos.forEach((ag, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+      <td>${ag.cliente || "Cliente Desconhecido"}</td>
+      <td>${ag.data}</td>
+      <td>${ag.horario}</td>
+      <td>
+        <button class="btn btn-warning fw-bold" onclick="abrirDetalhesHistorico(${index})">Detalhes</button>
+      </td>
+    `;
+          tabela.appendChild(tr);
+        });
+      }
 
       document.querySelectorAll(".sidebar a[data-section]").forEach((link) => {
         link.addEventListener("click", function (e) {
           e.preventDefault();
 
+          const section = this.getAttribute("data-section");
+
+          if (section === "historico-agendamentos") {
+            carregarHistoricoAgendamentos();
+          }
+
+          // Lógica de exibição da seção correspondente
           document
             .querySelectorAll(".sidebar a")
             .forEach((l) => l.classList.remove("active"));
@@ -1746,21 +2056,133 @@
             .querySelectorAll("section[id^='sec-']")
             .forEach((sec) => (sec.style.display = "none"));
 
+          const secao = document.getElementById("sec-" + section);
+          if (secao) secao.style.display = "block";
+        });
+      });
+
+      document.querySelectorAll(".sidebar a[data-section]").forEach((link) => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+
           const section = this.getAttribute("data-section");
 
-          // Se for seção de agenda e o usuário for admin, mostrar tela especial
-          if (section === "agenda") {
-            const usuario = JSON.parse(localStorage.getItem("usuario"));
-            if (usuario && usuario.tipo === "admin") {
-              document.getElementById("sec-agenda-admin").style.display = "block";
-              return;
-            }
+          // Remover classes ativas
+          document
+            .querySelectorAll(".sidebar a")
+            .forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+
+          // Esconder todas as seções
+          document
+            .querySelectorAll("section[id^='sec-']")
+            .forEach((sec) => (sec.style.display = "none"));
+
+          // Seções especiais
+          if (section === "clientes") {
+            carregarClientes();
           }
 
-          // Mostrar seção padrão
-          const secToShow = document.getElementById(`sec-${section}`);
-          if (secToShow) secToShow.style.display = "block";
+          // Mostrar a seção correspondente
+          const secao = document.getElementById("sec-" + section);
+          if (secao) secao.style.display = "block";
         });
+      });
+
+      const tabela = document.getElementById("tabelaHistoricoAgendamentos");
+      const agendamentos =
+        JSON.parse(localStorage.getItem("agendamentos")) || [];
+
+      function abrirDetalhesHistorico(index) {
+        const agendamentos =
+          JSON.parse(localStorage.getItem("agendamentos")) || [];
+
+        if (!agendamentos[index]) {
+          alert("Agendamento não encontrado.");
+          return;
+        }
+
+        const ag = agendamentos[index];
+
+        // Preenche os campos de detalhes
+        document.getElementById("detalheHistoricoNome").textContent =
+          ag.cliente || "-";
+        document.getElementById("detalheHistoricoTelefone").textContent =
+          ag.telefone || "-";
+        document.getElementById("detalheHistoricoServico").textContent =
+          ag.servico || "-";
+        document.getElementById("detalheHistoricoData").textContent =
+          ag.data || "-";
+        document.getElementById("detalheHistoricoHorario").textContent =
+          ag.horario || "-";
+        document.getElementById("statusHistorico").value =
+          ag.status || "AGENDADO";
+
+        // Mostra a seção correta e oculta as outras
+        document.querySelectorAll("section[id^='sec-']").forEach((sec) => {
+          sec.style.display = "none";
+        });
+        document.getElementById("sec-historico-detalhes").style.display =
+          "block";
+
+        // Armazena o índice para ser usado ao atualizar o status
+        document.getElementById("btnAtualizarStatus").dataset.index = index;
+      }
+
+      document
+        .getElementById("btnAtualizarStatus")
+        .addEventListener("click", () => {
+          const index =
+            document.getElementById("btnAtualizarStatus").dataset.index;
+          const novoStatus = document.getElementById("statusHistorico").value;
+
+          const agendamentos =
+            JSON.parse(localStorage.getItem("agendamentos")) || [];
+          if (agendamentos[index]) {
+            agendamentos[index].status = novoStatus;
+            localStorage.setItem("agendamentos", JSON.stringify(agendamentos));
+            alert("Status atualizado com sucesso!");
+            document.getElementById("statusSelecionado").value = novoStatus;
+          }
+        });
+
+      document
+        .getElementById("btnVoltarHistorico")
+        .addEventListener("click", () => {
+          document.getElementById("sec-historico-detalhes").style.display =
+            "none";
+          document.getElementById("sec-historico-agendamentos").style.display =
+            "block";
+        });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+        if (usuario && usuario.tipo === "admin") {
+          // Esconde a seção de boas-vindas
+          const secaoAdminBoasVindas =
+            document.getElementById("sec-agenda-admin");
+          if (secaoAdminBoasVindas) secaoAdminBoasVindas.style.display = "none";
+
+          // Mostra a seção do dashboard
+          document.querySelectorAll("section[id^='sec-']").forEach((sec) => {
+            sec.style.display = "none";
+          });
+          const dashboard = document.getElementById("sec-dashboard");
+          if (dashboard) dashboard.style.display = "block";
+
+          // Ativa o menu Dashboard
+          document
+            .querySelectorAll(".sidebar a")
+            .forEach((link) => link.classList.remove("active"));
+          const linkDashboard = document.querySelector(
+            '.sidebar a[data-section="dashboard"]'
+          );
+          if (linkDashboard) linkDashboard.classList.add("active");
+
+          // Carregar os dados
+          carregarHistoricoAgendamentos();
+        }
       });
     </script>
   </body>
